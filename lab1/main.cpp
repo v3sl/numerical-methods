@@ -228,16 +228,16 @@ int main()
     const std::vector<int> vector = GetVector(n);
     const std::vector<float> b = MatrixVectorMultiply(matrix, vector);
 
-    auto start = std::chrono::steady_clock::now();
+    std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
     // использование метода Гауса без выбора главного элемента
     const std::vector<float> res1 = GaussWithoutSelectingLeadingElement(matrix, b);
-    auto end = std::chrono::steady_clock::now();
+    std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
     const int time1 = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
 
-    start = end;
+    start = std::chrono::high_resolution_clock::now();
     // использование метода Гауса с выбором главного элемента
     const std::vector<float> res2 = GaussWithSelectingLeadingElement(matrix, b);
-    end = std::chrono::steady_clock::now();
+    end = std::chrono::high_resolution_clock::now();
     const int time2 = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
 
     // вывод результатов
