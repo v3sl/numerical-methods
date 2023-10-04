@@ -299,7 +299,7 @@ int main()
     std::cout << "RelativeError: " << GetRelativeError(vector, x) << '\n';
 
     // вывод времени выполнения
-    std::cout << "Time (LDL^T decomposition): " << time1 << "ms";
+    std::cout << "Time (LDL^T decomposition): " << time1 << "ms\n";
     std::cout << "Time (Gauss): " << time2 << "ms";
     return 0;
 }
