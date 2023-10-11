@@ -225,8 +225,8 @@ int main()
     // Вывод вектора приближенного решения
     PrintVector(s, 5, "Vector y*:");
     // Вывод относительной погрешности
-    std::cout << GetRelativeError(y, s) << '\n';
-    // Выврд времени выполнения
+    std ::cout << "Relative error: " << GetRelativeError(y, s) << '\n';
+    // Вывод времени выполнения
     std::cout << "Time (RunThroughMethod): " << time1 << "mcs\n";
     std::cout << "Time (Gauss): " << time2 << "ms\n";
     return 0;
