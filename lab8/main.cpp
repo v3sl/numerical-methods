@@ -146,7 +146,7 @@ void RunMethod(const std::vector<std::vector<double>> &matrix)
         residualVector[i] = au[i] - lambda * u[i];
     }
 
-    PrintVector(residualVector, residualVector.size(), "v^k+1 - labmda * u^k");
+    // PrintVector(residualVector, residualVector.size(), "v^k+1 - labmda * u^k");
     std::cout << "Maximum norm = " << GetMaximumNorm(residualVector) << '\n';
 
     lambda = GetScalarProduct(v, u) / GetScalarProduct(u, u);
@@ -156,7 +156,7 @@ void RunMethod(const std::vector<std::vector<double>> &matrix)
         residualVector[i] = au[i] - lambda * u[i];
     }
 
-    PrintVector(residualVector, residualVector.size(), "v^k+1 - labmda * u^k");
+    // PrintVector(residualVector, residualVector.size(), "v^k+1 - labmda * u^k");
     std::cout << "Maximum norm = " << GetMaximumNorm(residualVector);
 }
 
@@ -171,16 +171,16 @@ int main()
     // генерация задачи
     std::vector<std::vector<double>> matrix = GenerateMatrix(n);
 
-    std::cout << '\n';
-    for (auto &r : matrix)
-    {
-        for (auto c : r)
-        {
-            std::cout << c << ' ';
-        }
-        std::cout << '\n';
-    }
-    std::cout << '\n';
+    // std::cout << '\n';
+    // for (auto &r : matrix)
+    // {
+    //     for (auto c : r)
+    //     {
+    //         std::cout << c << ' ';
+    //     }
+    //     std::cout << '\n';
+    // }
+    // std::cout << '\n';
 
     RunMethod(matrix);
 
