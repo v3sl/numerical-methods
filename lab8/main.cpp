@@ -43,7 +43,7 @@ std::vector<std::vector<double>> GenerateMatrix(const int size)
 template <typename T>
 std::vector<double> GetMatrixVectorMultiplyResult(const std::vector<std::vector<double>> &matrix, const std::vector<T> &vector)
 {
-    const int size = vector.size();
+    const int size = matrix.size();
     std::vector<double> result(size);
     for (int i = 0; i < size; i++)
     {
@@ -63,9 +63,9 @@ double GetMaximumNorm(const std::vector<double> &vector)
 
     for (int i = 0; i < n; ++i)
     {
-        if (vector[i] > result)
+        if (abs(vector[i]) > result)
         {
-            result = vector[i];
+            result = abs(vector[i]);
         }
     }
 

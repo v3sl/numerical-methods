@@ -130,7 +130,11 @@ int main()
     while (frob.empty())
     {
         std::cout << "Generated new matrix\n";
-        matrix = GenerateMatrix();
+        matrix = {
+            {-18, 27, -4, -37},
+            {18, -34, -38, 10},
+            {-23, 6, -1, 26},
+            {6, 0, 43, -21}};
         frob = RunAlgorithm(matrix);
     }
     std::cout << "Matrix A: " << std::endl;
