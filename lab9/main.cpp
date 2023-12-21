@@ -31,28 +31,23 @@ const std::vector<std::vector<double>> M1 = {
     {0, 0, 1, 0},
     {0, 0, 0, 1}};
 
-double GetPx(double x)
+double GetPLambda(double lambda)
 {
-    return (x * x * x * x + 74 * x * x * x + 531 * x * x - 106000 * x - 1216700);
+    return (lambda * lambda * lambda * lambda + 74 * lambda * lambda * lambda + 531 * lambda * lambda - 106000 * lambda - 1216700);
 }
 
-double GetDPdx(double x)
+double GetDPdLambda(double lambda)
 {
-    return (4 * x * x * x + 222 * x * x + 1062 * x - 106000);
+    return (4 * lambda * lambda * lambda + 222 * lambda * lambda + 1062 * lambda - 106000);
 }
 
-double GetD2Pdx2(double x)
+double GetSign(double value)
 {
-    return (12 * x * x + 444 * x + 1062);
-}
-
-double GetSignX(double x)
-{
-    if (x < 0)
+    if (value < 0)
     {
         return -1;
     }
-    if (x > 0)
+    if (value > 0)
     {
         return 1;
     }
@@ -61,11 +56,11 @@ double GetSignX(double x)
 
 double RunNewtonMethod(double x0)
 {
-    double x1 = x0 - GetPx(x0) / GetDPdx(x0);
+    double x1 = x0 - GetPLambda(x0) / GetDPdLambda(x0);
     while (std::fabs(x1 - x0) >= epsilon)
     {
         x0 = x1;
-        x1 = x0 - GetPx(x0) / GetDPdx(x0);
+        x1 = x0 - GetPLambda(x0) / GetDPdLambda(x0);
     }
     return x1;
 }
@@ -76,13 +71,13 @@ double RunDichotomyMethod(double x0, double x1)
     double delta2 = (x1 - x0) / 2;
 
     double delta3 = delta2 / 2;
-    double x3 = x2 - delta3 * GetSignX(GetPx(x2));
+    double x3 = x2 - delta3 * GetSign(GetPLambda(x2));
     while (std::fabs(x3 - x2) >= epsilon)
     {
         x2 = x3;
         delta2 = delta3;
         delta3 = delta2 / 2;
-        x3 = x2 - delta2 * GetSignX(GetPx(x2));
+        x3 = x2 - delta2 * GetSign(GetPLambda(x2));
     }
     return x3;
 }
@@ -166,20 +161,20 @@ int main()
 {
     // применяется метод деления отрезка пополам
     double lambda1 = RunDichotomyMethod(17.338, INF);
-    std::cout << lambda1 << '\n';
-    std::cout << GetPx(lambda1) << '\n';
+    std::cout << "Lambda 1 (Dichotomy method): " << lambda1 << '\n';
+    std::cout << "P(lambda1) (Dichotomy method): " << GetPLambda(lambda1) << '\n';
     double lambda2 = RunDichotomyMethod(17.338, -INF);
-    std::cout << lambda2 << '\n';
-    std::cout << GetPx(lambda2) << '\n';
+    std::cout << "Lambda 2 (Dichotomy method): " << lambda2 << '\n';
+    std::cout << "P(lambda2) (Dichotomy method): " << GetPLambda(lambda2) << '\n';
 
     // приближенно вычисляются вещественные корни собственного многочлена методом Ньютона.
     lambda1 = RunNewtonMethod(5000);
     std::cout << "Lambda 1 (Newton method): " << lambda1 << '\n';
-    std::cout << "P(lambda1) (Newton method): " << GetPx(lambda1) << '\n';
+    std::cout << "P(lambda1) (Newton method): " << GetPLambda(lambda1) << '\n';
 
     lambda2 = RunNewtonMethod(-5000);
     std::cout << "Lambda 2 (Newton method): " << lambda2 << '\n';
-    std::cout << "P(lambda2) (Newton method): " << GetPx(lambda2) << '\n';
+    std::cout << "P(lambda2) (Newton method): " << GetPLambda(lambda2) << '\n';
 
     // с помощью матриц M3, M2, M1, полученных в лабораторной работе «Метод Данилевского», находится соответствующий собственный вектор u.
     std::vector<double> eigenvector = GetEigenvector(lambda1);
